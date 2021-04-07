@@ -13,6 +13,8 @@ class Player {
     this.shield = false;
     if (id == 1){ this.row = 1; this.col = 1; }
     else if (id == 2){ this.row = 1; this.col = 13; }
+    else if (id == 3){ this.row = 11; this.col = 13; }
+    else if (id == 4){ this.row = 11; this.col = 1; }
     this.numBombs = 0;
     this.bombSize = 3;
     this.alive = true;
@@ -30,9 +32,17 @@ class Player {
     context.save();
     if (this.id == 1){ context.fillStyle = 'white'; }
     else if (this.id == 2){ context.fillStyle = 'red'; }
+    else if (this.id == 3){ context.fillStyle = '#42f5ef'; }
+    else if (this.id == 4){ context.fillStyle = '#eb34df'; }
     context.beginPath();
     context.arc(x, y, this.radius, 0, 2 * Math.PI);
     context.fill();
+    if (this.shield){
+      context.fillStyle = 'rgba(255, 255, 0, 0.5)';
+      context.beginPath();
+      context.arc(x, y, this.radius+10, 0, 2 * Math.PI);
+      context.fill();
+    }
   }
 
   /**

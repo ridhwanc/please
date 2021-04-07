@@ -50,7 +50,7 @@ const io = socketio(server);
 io.on('connection', (sock) => {
     io.emit('addPlayer', sock.id);
     console.log("Someone Connected");
-    sock.emit("message", sock.id + 'Connected');
+    sock.emit("message", 'Player Connected');
 
     //update player list
     io.emit('requestPlayerList', sock.id);
@@ -99,7 +99,7 @@ io.on('connection', (sock) => {
     });
 
     sock.on('disconnect', () => {
-        io.emit('message', sock.id + " disconnected");
+        io.emit('message', "Player Disconnected");
         io.emit('removePlayer', sock.id);
     });
 });

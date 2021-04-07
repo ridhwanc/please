@@ -3,7 +3,7 @@
 /**
  * A function used to move one of the players in the game. Also checks from collisions with walls and does not allow movement through walls.
  * @function
- * @param {int} playerID - ID of the player to be moved.
+ * @param {int} PID - ID of the player to be moved.
  * @param {String} dir - Direction to move the player.
  */
 function movePlayer(PID, dir){
@@ -11,6 +11,12 @@ function movePlayer(PID, dir){
     P = player;
   } else if (PID == 2){
     P = player2;
+  }
+  else if (PID == 3){
+    P = player3;
+  }
+  else if (PID == 4){
+    P = player4;
   }
 
   let row = P.row;

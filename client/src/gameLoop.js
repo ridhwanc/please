@@ -6,7 +6,9 @@ let timeDifference;
 
 let player = new Player(1);
 let player2 = new Player(2);
-let playerList = [player,player2];
+let player3 = new Player(3);
+let player4 = new Player(4);
+let playerList = [player,player2,player3,player4];
 let powerUpList = [];
 
 

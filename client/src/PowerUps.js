@@ -60,6 +60,13 @@ class PowerUp {
         context.beginPath();
         context.arc(x, y, this.radius, 0, 2 * Math.PI);
         context.fill();
+        context.font="bold 30px Questrial";
+        context.textAlign = "center";
+        context.fillStyle = "white";
+        if (this.type == 0){ context.fillText("+1", x, y+8); }
+        else if (this.type == 1){ context.fillText("R", x, y+10); }
+        else if (this.type == 2){ context.fillStyle = "black"; context.fillText("S", x, y+10); }
+        
     }
 
 }

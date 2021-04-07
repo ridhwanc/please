@@ -16,8 +16,8 @@
 };
 
 const writeGameOver = (text) => {
-    const h3 = document.querySelector('#gameOver')
-    h3.innerHTML = text;
+    const h1 = document.querySelector('#gameOver')
+    h1.innerHTML = text;
 };
 
 const spawnPowerUpEvent = (signal) => {
@@ -41,7 +41,7 @@ const moveEvent = (signal) => {
     PID = checkPlayer(sockID);
     console.log(PID);
     // console.log(sockID);
-    if (PID == 1 || PID == 2){
+    if (PID == 1 || PID == 2 || PID == 3 || PID == 4){
         movePlayer(PID, dir);
     }
 };
@@ -56,7 +56,7 @@ const placeBombEvent = (sockID) => {
     PID = checkPlayer(sockID);
     console.log(PID);
     // console.log(sockID);
-    if (PID == 1 || PID == 2){
+    if (PID == 1 || PID == 2 || PID == 3 || PID == 4){
         placeBomb(PID);
         console.log(PID + "Place the bomb");
     }
@@ -70,7 +70,7 @@ const sendPlayerInfo = (requestFrom) => {
     console.log("sock comparison " + sock.id + "  " + requestFrom);
     if (sock.id !== requestFrom){
         console.log("sent player info");
-        tempArr = [P1, P2, waitList];
+        tempArr = [P1, P2, P3, P4, waitList];
         sock.emit("playerList", tempArr);
     }
 }
@@ -79,7 +79,9 @@ const updatePlayerList = (playerInfo) => {
     console.log("received player list");
     P1 = playerInfo[0];
     P2 = playerInfo[1];
-    waitList = playerInfo[2];
+    P3 = playerInfo[2];
+    P4 = playerInfo[3];
+    waitList = playerInfo[4];
 }
 
 const removePlayerEvent = (disconnectedSock) => {
@@ -89,7 +91,7 @@ const removePlayerEvent = (disconnectedSock) => {
 
 const sendGameState = (requestFrom) => {
     if (sock.id !== requestFrom){
-        tempArr = [cells, player, player2];
+        tempArr = [cells, player, player2, player3, player4];
         sock.emit("updateGameState", tempArr);
         console.log("sent game state");
     }
@@ -100,6 +102,8 @@ const updateGameStateEvent = (gameState) => {
     cells = gameState[0];
     player.copyPlayer(gameState[1]);
     player2.copyPlayer(gameState[2]);
+    player3.copyPlayer(gameState[3]);
+    player4.copyPlayer(gameState[4]);
     console.log("Game State Updated");
 }
 
@@ -131,16 +135,6 @@ const onFormSubmitted = (e) => {
  * @constant
  */
 const keyPressListener = () => {
-    ['up', 'down', 'left', 'right'].forEach((id) => {
-        const button = document.getElementById(id);
-        button.addEventListener('click', () => {
-        //   sock.emit('message', id);
-          sock.emit('movement', id);
-        });
-      });
-};
-
-const keyPressListener2 = () => {
     document.addEventListener('keydown', function(e) {
         // left arrow key
         if (e.which === 65) {
@@ -182,7 +176,7 @@ const generateListener = () => {
     });
 };
 
-writeEvent("Welcome to RPS");
+// writeEvent("Welcome to RPS");
 
 const sock = io();
 sock.on('message', writeEvent);
@@ -200,4 +194,3 @@ sock.on('spawnPowerUp', spawnPowerUpEvent);
 
 document.querySelector('#chat-form').addEventListener('submit', onFormSubmitted);
 keyPressListener();
-keyPressListener2();
